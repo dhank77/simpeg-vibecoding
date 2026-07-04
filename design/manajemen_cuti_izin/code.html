@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Leave &amp; Permit Management | HR Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-surface": "#2e3039",
+                        "on-primary-container": "#eeefff",
+                        "primary-fixed": "#dbe1ff",
+                        "on-secondary-fixed": "#0b1c30",
+                        "on-tertiary-container": "#bdffdb",
+                        "surface-container": "#ededf9",
+                        "surface-tint": "#0053db",
+                        "on-primary-fixed": "#00174b",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "secondary": "#505f76",
+                        "primary": "#004ac6",
+                        "surface": "#faf8ff",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "surface-container-high": "#e7e7f3",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "tertiary": "#006242",
+                        "on-secondary-container": "#54647a",
+                        "background": "#faf8ff",
+                        "surface-container-low": "#f3f3fe",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#191b23",
+                        "tertiary-fixed": "#6ffbbe",
+                        "secondary-container": "#d0e1fb",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#faf8ff",
+                        "on-surface": "#191b23",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "inverse-primary": "#b4c5ff",
+                        "tertiary-container": "#007d55",
+                        "on-error-container": "#93000a",
+                        "on-surface-variant": "#434655",
+                        "on-tertiary": "#ffffff",
+                        "inverse-on-surface": "#f0f0fb",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "outline": "#737686",
+                        "secondary-fixed": "#d3e4fe",
+                        "surface-variant": "#e1e2ed",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed": "#002113",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#2563eb",
+                        "surface-dim": "#d9d9e5",
+                        "outline-variant": "#c3c6d7",
+                        "surface-container-highest": "#e1e2ed",
+                        "on-primary-fixed-variant": "#003ea8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "4px",
+                        "xs": "4px",
+                        "gutter": "24px",
+                        "max-width": "1440px",
+                        "md": "16px",
+                        "2xl": "48px",
+                        "margin": "32px",
+                        "xl": "32px",
+                        "lg": "24px",
+                        "sm": "8px"
+                    },
+                    "fontFamily": {
+                        "display": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "title-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #F8FAFC; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background overflow-hidden h-screen flex">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-[240px] bg-surface-container-lowest border-r border-outline-variant flex flex-col p-md z-40">
+<div class="mb-xl px-sm">
+<h1 class="font-display text-display text-primary">HR Portal</h1>
+<p class="text-on-surface-variant font-label-md text-label-md">Admin Console</p>
+</div>
+<nav class="flex-1 space-y-sm">
+<a class="flex items-center gap-md px-md py-sm text-secondary hover:bg-surface-container-low rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined text-title-md">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-secondary hover:bg-surface-container-low rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined text-title-md">group</span>
+<span class="font-body-md text-body-md">Directory</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-secondary hover:bg-surface-container-low rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined text-title-md">calendar_today</span>
+<span class="font-body-md text-body-md">Attendance</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm bg-secondary-container text-on-secondary-container font-bold rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined text-title-md">pending_actions</span>
+<span class="font-body-md text-body-md">Leave</span>
+<span class="ml-auto bg-primary text-on-primary text-[10px] px-1.5 py-0.5 rounded-full">12</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-secondary hover:bg-surface-container-low rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined text-title-md">payments</span>
+<span class="font-body-md text-body-md">Payroll</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-secondary hover:bg-surface-container-low rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined text-title-md">settings</span>
+<span class="font-body-md text-body-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto pt-md">
+<button class="w-full flex items-center justify-center gap-sm bg-primary text-on-primary py-sm rounded-lg font-title-md text-title-md scale-95 active:scale-90 transition-transform shadow-md">
+<span class="material-symbols-outlined">add</span>
+                New Request
+            </button>
+<div class="mt-xl flex items-center gap-md px-sm">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-variant ring-2 ring-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional corporate headshot of a female HR administrator with a friendly expression, wearing modern business casual attire. The lighting is soft and bright, set against a clean, minimalist office background with soft bokeh. The overall aesthetic is professional, reliable, and corporate." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNbnwo5Tj0_jBeA9YDtd52WWuwVirhR4lwP_5EiHFJz4OYy8M9V4WTEf77rU_ueP3JvM37EUZCsqYE4XZw-CLNVJCORQkYxjtSLEvfqXcs77L4jUth9hljXvfe1kWmLqBcbn0Y_AY-PR8c1mS-XsDhnLfyNM8w08I2pS70hDdoqD3-PtgLmL4Zu2FambPstlLUJU0aEInmnJ2OEGMNkvdeI4B6pmthsZa1B94v-R2t6fT7WMAF67wh"/>
+</div>
+<div>
+<p class="font-title-md text-title-md text-on-surface">Alex River</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Admin Console</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-[240px] flex-1 flex flex-col h-full bg-background overflow-hidden relative">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-30 w-full flex items-center justify-between px-gutter py-sm bg-surface border-b border-outline-variant">
+<div class="flex items-center gap-lg">
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-md text-outline">search</span>
+<input class="pl-xl pr-md py-sm bg-surface-container-lowest border border-outline-variant rounded-full text-body-md w-80 focus:ring-2 focus:ring-primary focus:outline-none transition-all" placeholder="Search employees..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-lg">
+<button class="p-sm rounded-full hover:bg-surface-container-high transition-colors relative">
+<span class="material-symbols-outlined text-secondary">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="p-sm rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-secondary">help_outline</span>
+</button>
+<div class="h-8 w-px bg-outline-variant mx-xs"></div>
+<button class="bg-primary text-on-primary px-lg py-sm rounded-lg font-title-md text-title-md hover:shadow-lg transition-all">
+                    Add Employee
+                </button>
+</div>
+</header>
+<!-- Content Canvas -->
+<section class="flex-1 p-gutter overflow-y-auto custom-scrollbar">
+<div class="max-w-max-width mx-auto">
+<!-- Page Header & Stats -->
+<div class="mb-xl flex flex-col md:flex-row md:items-end justify-between gap-xl">
+<div>
+<h2 class="font-display text-display text-on-surface">Leave &amp; Permit Management</h2>
+<p class="text-body-lg font-body-lg text-on-surface-variant mt-xs">Review and approve employee time-off requests across the organization.</p>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-md">
+<!-- Stat Card 1 -->
+<div class="glass-card p-md rounded-xl flex items-center gap-md min-w-[180px]">
+<div class="w-12 h-12 bg-primary-container text-on-primary-container rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined">pending_actions</span>
+</div>
+<div>
+<p class="text-label-md font-label-md text-on-surface-variant uppercase tracking-wider">Pending</p>
+<p class="text-headline-md font-headline-md">12</p>
+</div>
+</div>
+<!-- Stat Card 2 -->
+<div class="glass-card p-md rounded-xl flex items-center gap-md min-w-[180px]">
+<div class="w-12 h-12 bg-tertiary-fixed text-on-tertiary-fixed rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined">check_circle</span>
+</div>
+<div>
+<p class="text-label-md font-label-md text-on-surface-variant uppercase tracking-wider">Approved</p>
+<p class="text-headline-md font-headline-md">148</p>
+</div>
+</div>
+<!-- Stat Card 3 -->
+<div class="glass-card p-md rounded-xl flex items-center gap-md min-w-[180px]">
+<div class="w-12 h-12 bg-error-container text-on-error-container rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined">cancel</span>
+</div>
+<div>
+<p class="text-label-md font-label-md text-on-surface-variant uppercase tracking-wider">Rejected</p>
+<p class="text-headline-md font-headline-md">24</p>
+</div>
+</div>
+<!-- Stat Card 4 -->
+<div class="glass-card p-md rounded-xl flex items-center gap-md min-w-[180px]">
+<div class="w-12 h-12 bg-secondary-container text-on-secondary-container rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined">pie_chart</span>
+</div>
+<div>
+<p class="text-label-md font-label-md text-on-surface-variant uppercase tracking-wider">Avg Quota</p>
+<p class="text-headline-md font-headline-md">18d</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Tabs & Filters -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-2xl shadow-sm overflow-hidden">
+<div class="flex items-center justify-between border-b border-outline-variant px-lg">
+<div class="flex gap-xl">
+<button class="relative py-lg font-title-md text-title-md text-primary border-b-2 border-primary">
+                                Pending Requests
+                                <span class="ml-sm bg-primary-container text-on-primary-container text-[10px] px-1.5 py-0.5 rounded-full align-middle">12</span>
+</button>
+<button class="py-lg font-title-md text-title-md text-on-surface-variant hover:text-on-surface transition-colors">
+                                Approved
+                            </button>
+<button class="py-lg font-title-md text-title-md text-on-surface-variant hover:text-on-surface transition-colors">
+                                Rejected
+                            </button>
+</div>
+<div class="flex items-center gap-md">
+<button class="flex items-center gap-xs px-md py-sm bg-surface-container-low rounded-lg text-body-md hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                                Filter
+                            </button>
+<button class="flex items-center gap-xs px-md py-sm bg-surface-container-low rounded-lg text-body-md hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                                Export
+                            </button>
+</div>
+</div>
+<!-- Requests Grid/List -->
+<div class="p-lg space-y-md">
+<!-- Request Item 1 -->
+<div class="group flex flex-col lg:flex-row items-start lg:items-center justify-between gap-xl p-lg rounded-xl border border-outline-variant hover:border-primary hover:shadow-md transition-all bg-surface-container-lowest">
+<div class="flex items-center gap-lg flex-1 min-w-0">
+<div class="w-12 h-12 rounded-full flex-shrink-0 bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center font-bold">JD</div>
+<div class="min-w-0">
+<h4 class="font-title-lg text-title-lg text-on-surface truncate">Jordan Davies</h4>
+<p class="text-body-md font-body-md text-on-surface-variant">Senior Product Designer</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-xl flex-[2]">
+<div class="flex flex-col">
+<span class="text-label-md font-label-md text-on-surface-variant uppercase mb-xs">Leave Type</span>
+<span class="inline-flex items-center gap-xs px-md py-0.5 rounded-full bg-primary-container/10 text-primary font-medium text-body-md">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Annual Leave
+                                    </span>
+</div>
+<div class="flex flex-col">
+<span class="text-label-md font-label-md text-on-surface-variant uppercase mb-xs">Duration</span>
+<span class="text-body-md font-medium text-on-surface">Oct 12 — Oct 15 (4 days)</span>
+</div>
+<div class="flex flex-col flex-1 min-w-[200px]">
+<span class="text-label-md font-label-md text-on-surface-variant uppercase mb-xs">Reason</span>
+<p class="text-body-md text-on-surface-variant line-clamp-1">Family wedding in Seattle. Requesting extra day for travel.</p>
+</div>
+</div>
+<div class="flex items-center gap-md self-end lg:self-center">
+<button class="flex items-center gap-xs px-lg py-sm bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg font-title-md text-title-md transition-all active:scale-95 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">check</span>
+                                    Approve
+                                </button>
+<button class="flex items-center gap-xs px-lg py-sm bg-rose-500 hover:bg-rose-600 text-white rounded-lg font-title-md text-title-md transition-all active:scale-95 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">close</span>
+                                    Reject
+                                </button>
+</div>
+</div>
+<!-- Request Item 2 -->
+<div class="group flex flex-col lg:flex-row items-start lg:items-center justify-between gap-xl p-lg rounded-xl border border-outline-variant hover:border-primary hover:shadow-md transition-all bg-surface-container-lowest">
+<div class="flex items-center gap-lg flex-1 min-w-0">
+<div class="w-12 h-12 rounded-full flex-shrink-0 bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center font-bold">SM</div>
+<div class="min-w-0">
+<h4 class="font-title-lg text-title-lg text-on-surface truncate">Sarah Miller</h4>
+<p class="text-body-md font-body-md text-on-surface-variant">Marketing Lead</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-xl flex-[2]">
+<div class="flex flex-col">
+<span class="text-label-md font-label-md text-on-surface-variant uppercase mb-xs">Leave Type</span>
+<span class="inline-flex items-center gap-xs px-md py-0.5 rounded-full bg-amber-50 text-amber-700 font-medium text-body-md border border-amber-100">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Sick Leave
+                                    </span>
+</div>
+<div class="flex flex-col">
+<span class="text-label-md font-label-md text-on-surface-variant uppercase mb-xs">Duration</span>
+<span class="text-body-md font-medium text-on-surface">Oct 09 — Oct 10 (2 days)</span>
+</div>
+<div class="flex flex-col flex-1 min-w-[200px]">
+<span class="text-label-md font-label-md text-on-surface-variant uppercase mb-xs">Reason</span>
+<p class="text-body-md text-on-surface-variant line-clamp-1">Recurring seasonal flu. Doctor's note attached in portal.</p>
+</div>
+</div>
+<div class="flex items-center gap-md self-end lg:self-center">
+<button class="flex items-center gap-xs px-lg py-sm bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg font-title-md text-title-md transition-all active:scale-95 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">check</span>
+                                    Approve
+                                </button>
+<button class="flex items-center gap-xs px-lg py-sm bg-rose-500 hover:bg-rose-600 text-white rounded-lg font-title-md text-title-md transition-all active:scale-95 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">close</span>
+                                    Reject
+                                </button>
+</div>
+</div>
+<!-- Request Item 3 -->
+<div class="group flex flex-col lg:flex-row items-start lg:items-center justify-between gap-xl p-lg rounded-xl border border-outline-variant hover:border-primary hover:shadow-md transition-all bg-surface-container-lowest">
+<div class="flex items-center gap-lg flex-1 min-w-0">
+<div class="w-12 h-12 rounded-full flex-shrink-0 bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-bold">MK</div>
+<div class="min-w-0">
+<h4 class="font-title-lg text-title-lg text-on-surface truncate">Marcus Knight</h4>
+<p class="text-body-md font-body-md text-on-surface-variant">Backend Developer</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-xl flex-[2]">
+<div class="flex flex-col">
+<span class="text-label-md font-label-md text-on-surface-variant uppercase mb-xs">Leave Type</span>
+<span class="inline-flex items-center gap-xs px-md py-0.5 rounded-full bg-slate-100 text-slate-600 font-medium text-body-md border border-slate-200">
+<span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span> Unpaid Leave
+                                    </span>
+</div>
+<div class="flex flex-col">
+<span class="text-label-md font-label-md text-on-surface-variant uppercase mb-xs">Duration</span>
+<span class="text-body-md font-medium text-on-surface">Oct 20 — Oct 20 (1 day)</span>
+</div>
+<div class="flex flex-col flex-1 min-w-[200px]">
+<span class="text-label-md font-label-md text-on-surface-variant uppercase mb-xs">Reason</span>
+<p class="text-body-md text-on-surface-variant line-clamp-1">Personal errand regarding housing documents.</p>
+</div>
+</div>
+<div class="flex items-center gap-md self-end lg:self-center">
+<button class="flex items-center gap-xs px-lg py-sm bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg font-title-md text-title-md transition-all active:scale-95 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">check</span>
+                                    Approve
+                                </button>
+<button class="flex items-center gap-xs px-lg py-sm bg-rose-500 hover:bg-rose-600 text-white rounded-lg font-title-md text-title-md transition-all active:scale-95 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">close</span>
+                                    Reject
+                                </button>
+</div>
+</div>
+<!-- Empty state / Load more -->
+<div class="pt-lg flex justify-center">
+<button class="text-primary font-title-md text-title-md hover:underline flex items-center gap-xs">
+                                Load 9 more pending requests
+                                <span class="material-symbols-outlined">expand_more</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Footer Quota Overview -->
+<div class="mt-2xl grid grid-cols-1 lg:grid-cols-2 gap-xl">
+<div class="glass-card p-xl rounded-2xl">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-lg flex items-center gap-md">
+<span class="material-symbols-outlined text-primary">analytics</span>
+                            Departmental Quota Balance
+                        </h3>
+<div class="space-y-lg">
+<div>
+<div class="flex justify-between text-body-md mb-xs">
+<span class="text-on-surface-variant">Engineering Team</span>
+<span class="font-medium">85% Used</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-error rounded-full" style="width: 85%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-body-md mb-xs">
+<span class="text-on-surface-variant">Design Team</span>
+<span class="font-medium">42% Used</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 42%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-body-md mb-xs">
+<span class="text-on-surface-variant">Marketing Team</span>
+<span class="font-medium">60% Used</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-tertiary rounded-full" style="width: 60%"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="glass-card p-xl rounded-2xl flex flex-col justify-center">
+<div class="flex items-start gap-lg">
+<div class="p-md rounded-full bg-primary-container/20 text-primary">
+<span class="material-symbols-outlined text-display">info</span>
+</div>
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface">Auto-Approval Logic</h3>
+<p class="text-body-md text-on-surface-variant mt-sm">Your "Emergency Leave" requests are currently handled by the AI Assistant. Requests for more than 5 days always require manual administrator review.</p>
+<button class="mt-lg text-primary font-title-md text-title-md flex items-center gap-xs">
+                                    Update Policy Settings
+                                    <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- FAB for quick actions -->
+<button class="fixed bottom-margin right-margin w-14 h-14 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50">
+<span class="material-symbols-outlined text-display">bolt</span>
+</button>
+<script>
+        // Micro-interactions for tab switching and button clicks
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                if (this.textContent.includes('Approve') || this.textContent.includes('Reject')) {
+                    const card = this.closest('.group');
+                    card.style.transform = 'translateX(20px)';
+                    card.style.opacity = '0';
+                    setTimeout(() => {
+                        card.style.display = 'none';
+                    }, 300);
+                }
+            });
+        });
+
+        // Tab selection logic
+        const tabs = document.querySelectorAll('.py-lg');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                tabs.forEach(t => {
+                    t.classList.remove('text-primary', 'border-b-2', 'border-primary');
+                    t.classList.add('text-on-surface-variant');
+                });
+                this.classList.remove('text-on-surface-variant');
+                this.classList.add('text-primary', 'border-b-2', 'border-primary');
+            });
+        });
+    </script>
+</body></html>

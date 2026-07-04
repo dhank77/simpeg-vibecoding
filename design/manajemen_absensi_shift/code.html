@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Attendance &amp; Shift Management | HR Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-surface": "#2e3039",
+                    "on-primary-container": "#eeefff",
+                    "primary-fixed": "#dbe1ff",
+                    "on-secondary-fixed": "#0b1c30",
+                    "on-tertiary-container": "#bdffdb",
+                    "surface-container": "#ededf9",
+                    "surface-tint": "#0053db",
+                    "on-primary-fixed": "#00174b",
+                    "on-secondary-fixed-variant": "#38485d",
+                    "secondary": "#505f76",
+                    "primary": "#004ac6",
+                    "surface": "#faf8ff",
+                    "on-tertiary-fixed-variant": "#005236",
+                    "surface-container-high": "#e7e7f3",
+                    "tertiary-fixed-dim": "#4edea3",
+                    "tertiary": "#006242",
+                    "on-secondary-container": "#54647a",
+                    "background": "#faf8ff",
+                    "surface-container-low": "#f3f3fe",
+                    "on-secondary": "#ffffff",
+                    "on-background": "#191b23",
+                    "tertiary-fixed": "#6ffbbe",
+                    "secondary-container": "#d0e1fb",
+                    "on-error": "#ffffff",
+                    "surface-bright": "#faf8ff",
+                    "on-surface": "#191b23",
+                    "secondary-fixed-dim": "#b7c8e1",
+                    "inverse-primary": "#b4c5ff",
+                    "tertiary-container": "#007d55",
+                    "on-error-container": "#93000a",
+                    "on-surface-variant": "#434655",
+                    "on-tertiary": "#ffffff",
+                    "inverse-on-surface": "#f0f0fb",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "outline": "#737686",
+                    "secondary-fixed": "#d3e4fe",
+                    "surface-variant": "#e1e2ed",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed": "#002113",
+                    "error": "#ba1a1a",
+                    "error-container": "#ffdad6",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#2563eb",
+                    "surface-dim": "#d9d9e5",
+                    "outline-variant": "#c3c6d7",
+                    "surface-container-highest": "#e1e2ed",
+                    "on-primary-fixed-variant": "#003ea8"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "4px",
+                    "xs": "4px",
+                    "gutter": "24px",
+                    "max-width": "1440px",
+                    "md": "16px",
+                    "2xl": "48px",
+                    "margin": "32px",
+                    "xl": "32px",
+                    "lg": "24px",
+                    "sm": "8px"
+            },
+            "fontFamily": {
+                    "display": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "title-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "title-lg": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "display": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "600"}],
+                    "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "title-lg": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #F8FAFC; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); }
+    </style>
+</head>
+<body class="bg-background text-on-background">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-[240px] bg-surface-container-lowest border-r border-outline-variant flex flex-col p-md z-40">
+<div class="mb-xl px-sm">
+<h1 class="font-display text-display text-primary">HR Portal</h1>
+<p class="font-body-md text-secondary opacity-70">Admin Console</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-md px-md py-sm text-secondary hover:bg-surface-container-low transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-secondary hover:bg-surface-container-low transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-body-md">Directory</span>
+</a>
+<!-- Active Tab: Attendance -->
+<a class="flex items-center gap-md px-md py-sm bg-secondary-container text-on-secondary-container font-bold rounded-lg group" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+<span class="font-body-md">Attendance</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-secondary hover:bg-surface-container-low transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined">pending_actions</span>
+<span class="font-body-md">Leave</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-secondary hover:bg-surface-container-low transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-body-md">Payroll</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-secondary hover:bg-surface-container-low transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-body-md">Settings</span>
+</a>
+</nav>
+<button class="mt-auto bg-primary text-on-primary font-title-md py-md px-lg rounded-lg flex items-center justify-center gap-sm active:scale-95 transition-transform">
+<span class="material-symbols-outlined">add</span>
+            New Request
+        </button>
+</aside>
+<!-- TopNavBar -->
+<header class="fixed top-0 left-[240px] right-0 bg-surface h-16 border-b border-outline-variant flex items-center justify-between px-gutter z-30">
+<div class="flex items-center gap-xl flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full pl-xl pr-md py-sm text-body-md focus:ring-2 focus:ring-primary/20" placeholder="Search employee or shift..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-lg">
+<button class="p-sm text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-sm text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<div class="h-8 w-px bg-outline-variant"></div>
+<div class="flex items-center gap-md">
+<div class="text-right">
+<p class="font-label-md text-on-surface">Alex Rivera</p>
+<p class="text-[10px] text-outline font-medium uppercase tracking-wider">Super Admin</p>
+</div>
+<img class="w-10 h-10 rounded-full border border-outline-variant object-cover" data-alt="A professional headshot of a Hispanic male HR administrator in his late 30s, wearing a crisp navy blazer over a white shirt, smiling warmly against a clean, out-of-focus modern office background with soft natural lighting and a cool blue and white color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsZS6H3Wc1WmG77d7fIU_Cb-Ei6h5WV4ccdKIfd0i1VGIBJrU3mT9p90Do6oSAWVVYE0EeRnHKZmvDM_HBlMDdN4sA0H2u75jRMnoAK_o3OMi2YEUBwVJ3voLrB8ZmWx3DVK2KLxSnCgijvw4gxOdCtINnKuuF59-tOsR8RlDFJUTMeu2PocSKzxzN8G1AE_l7aJdgMymf1B1zxTGZWRgm7wRQIk5j_fZ5NkkQJEGI9PK5UWVk7tIN"/>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-[240px] pt-16 p-gutter">
+<!-- Header Actions & Filters -->
+<div class="mb-xl flex flex-col md:flex-row md:items-end justify-between gap-lg">
+<div>
+<h2 class="font-display text-display text-on-surface">Attendance &amp; Shifts</h2>
+<p class="font-body-md text-on-surface-variant">Real-time monitoring and historical punctuality tracking.</p>
+</div>
+<div class="flex flex-wrap items-center gap-md">
+<div class="flex items-center bg-white border border-outline-variant rounded-lg p-1">
+<button class="px-md py-sm bg-secondary-container text-on-secondary-container rounded-md font-label-md">Weekly</button>
+<button class="px-md py-sm text-secondary hover:bg-surface-container-low rounded-md font-label-md">Monthly</button>
+<button class="px-md py-sm text-secondary hover:bg-surface-container-low rounded-md font-label-md">Calendar</button>
+</div>
+<div class="flex items-center gap-sm bg-white border border-outline-variant rounded-lg px-md py-sm">
+<span class="material-symbols-outlined text-outline text-sm">calendar_month</span>
+<input class="border-none p-0 text-body-md font-medium focus:ring-0 w-44" type="text" value="Oct 23 - Oct 29, 2023"/>
+</div>
+<select class="bg-white border border-outline-variant rounded-lg px-md py-sm text-body-md focus:ring-primary focus:border-primary">
+<option>All Departments</option>
+<option>Engineering</option>
+<option>Design</option>
+<option>Operations</option>
+</select>
+</div>
+</div>
+<!-- Dashboard Grid Layout -->
+<div class="grid grid-cols-12 gap-lg">
+<!-- Real-time Attendance Monitoring Widget -->
+<div class="col-span-12 lg:col-span-4 space-y-lg">
+<div class="bg-white rounded-xl border border-outline-variant p-lg shadow-sm">
+<div class="flex items-center justify-between mb-lg">
+<h3 class="font-headline-md text-on-surface">Real-time Status</h3>
+<span class="flex items-center gap-xs text-[10px] font-bold text-tertiary uppercase tracking-widest bg-tertiary-fixed px-sm py-1 rounded-full">
+<span class="w-1.5 h-1.5 bg-tertiary rounded-full animate-pulse"></span> Live
+                        </span>
+</div>
+<div class="space-y-md">
+<div class="flex items-center justify-between p-md bg-surface-container-low rounded-lg">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">login</span>
+</div>
+<div>
+<p class="font-title-md text-on-surface">Checked In</p>
+<p class="font-label-md text-outline">Currently active</p>
+</div>
+</div>
+<p class="font-headline-md text-primary">142</p>
+</div>
+<div class="flex items-center justify-between p-md bg-surface-container-low rounded-lg">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 bg-error-container text-on-error-container rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">schedule</span>
+</div>
+<div>
+<p class="font-title-md text-on-surface">Late Arrival</p>
+<p class="font-label-md text-outline">Since 08:00 AM</p>
+</div>
+</div>
+<p class="font-headline-md text-error">12</p>
+</div>
+</div>
+<div class="mt-xl pt-lg border-t border-outline-variant">
+<p class="font-label-md text-on-surface-variant mb-md uppercase tracking-tighter">Recent Swipes</p>
+<div class="space-y-md">
+<div class="flex items-center gap-md">
+<img class="w-8 h-8 rounded-full" data-alt="Close-up portrait of a young professional woman with glasses, light skin, and brown hair, in a professional office setting with soft bokeh backgrounds, looking directly at the camera with a confident expression, modern high-key lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDd4Qmh25UHn9Q0hbyKX5iLHc4l7OAheX4KSlvpyQ731WLTX2bIx0XFizPaQt1UWhpohq1p5yLy85lNfXn9x6ymWGrJ1Ec9qL6N7w_21OzagBYqU9isGZr2pwZGuE2-Rw_AA2QSqn1J0SDxkWRDkwvaPhFEyOcjnTQRbgLBEXfvULAq2dtVWNQ0AOnDsKt1_27BfvKVZomXEHirpP34Xg1wSCS2YsjTAD5n49ilQ_eRWccblcHFAdSj"/>
+<div class="flex-1 min-w-0">
+<p class="text-body-md font-medium truncate">Sarah Jenkins</p>
+<p class="text-[10px] text-outline">Engineering • 08:42 AM</p>
+</div>
+<span class="px-sm py-1 bg-tertiary-fixed text-on-tertiary-fixed-variant rounded-full text-[10px] font-bold">ON-TIME</span>
+</div>
+<div class="flex items-center gap-md">
+<img class="w-8 h-8 rounded-full" data-alt="Portrait of a diverse man with short dark hair and a beard, wearing a casual professional grey sweater, neutral grey background with professional softbox lighting, looking friendly and approachable, crisp detail." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6POT5PUDZFlLhgeAz01HZkptMWl5hGk_W2cvHXqYgSo3Rjfaysat4J6fSVIPudoLyjjfrZSkrjZnvNJ-cYvggXSbfTI81CckNjXbI6zesAPyDaz_NGbuePGSn0YDk0yM1h6bIu86wRy-QzVmbWqBMW_nH5RTv3EzYx5Agwfoyh0BvDfqer24uLEbKb898UW5a0AKGQ3pbRS-i4jvNA-gpIqGl2RU3tz3mtZvmFB9fF-IS9SEVGJeJ"/>
+<div class="flex-1 min-w-0">
+<p class="text-body-md font-medium truncate">Marcus Zhao</p>
+<p class="text-[10px] text-outline">Design • 09:15 AM</p>
+</div>
+<span class="px-sm py-1 bg-error-container text-on-error-container rounded-full text-[10px] font-bold">LATE</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-inverse-surface rounded-xl p-lg text-inverse-on-surface shadow-xl relative overflow-hidden">
+
+<div class="relative z-10">
+<h4 class="font-headline-md mb-xs">Today's Focus</h4>
+<p class="font-body-md opacity-80 mb-lg">3 employees have exceeded 3 late arrivals this week. Action required.</p>
+<button class="w-full py-sm bg-primary-fixed text-on-primary-fixed font-title-md rounded-lg hover:brightness-110 transition-all">Review Penalties</button>
+</div>
+</div>
+</div>
+<!-- Weekly Shift Schedule -->
+<div class="col-span-12 lg:col-span-8 bg-white rounded-xl border border-outline-variant shadow-sm flex flex-col">
+<div class="p-lg border-b border-outline-variant flex items-center justify-between">
+<h3 class="font-headline-md text-on-surface">Weekly Shift Schedule</h3>
+<div class="flex items-center gap-sm">
+<button class="p-xs hover:bg-surface-container-low rounded transition-colors"><span class="material-symbols-outlined text-outline">chevron_left</span></button>
+<span class="font-title-md text-on-surface">Oct 23 - Oct 29</span>
+<button class="p-xs hover:bg-surface-container-low rounded transition-colors"><span class="material-symbols-outlined text-outline">chevron_right</span></button>
+</div>
+</div>
+<div class="overflow-x-auto custom-scrollbar">
+<table class="w-full border-collapse">
+<thead>
+<tr class="bg-surface-container-low">
+<th class="text-left p-md border-r border-outline-variant bg-surface-container-low sticky left-0 z-10">Employee</th>
+<th class="p-md text-center border-r border-outline-variant min-w-[120px]"><p class="font-label-md uppercase text-outline">Mon 23</p></th>
+<th class="p-md text-center border-r border-outline-variant min-w-[120px]"><p class="font-label-md uppercase text-outline text-primary">Tue 24</p></th>
+<th class="p-md text-center border-r border-outline-variant min-w-[120px]"><p class="font-label-md uppercase text-outline">Wed 25</p></th>
+<th class="p-md text-center border-r border-outline-variant min-w-[120px]"><p class="font-label-md uppercase text-outline">Thu 26</p></th>
+<th class="p-md text-center border-r border-outline-variant min-w-[120px]"><p class="font-label-md uppercase text-outline">Fri 27</p></th>
+<th class="p-md text-center border-r border-outline-variant min-w-[120px]"><p class="font-label-md uppercase text-outline">Sat 28</p></th>
+<th class="p-md text-center min-w-[120px]"><p class="font-label-md uppercase text-outline">Sun 29</p></th>
+</tr>
+</thead>
+<tbody class="font-body-md">
+<tr class="border-b border-outline-variant hover:bg-surface-container-lowest transition-colors">
+<td class="p-md border-r border-outline-variant bg-white sticky left-0 font-medium">Eleanor Shellstrop</td>
+<td class="p-md border-r border-outline-variant text-center"><span class="bg-secondary-container text-on-secondary-container px-sm py-1 rounded text-xs">Morning</span></td>
+<td class="p-md border-r border-outline-variant text-center"><span class="bg-secondary-container text-on-secondary-container px-sm py-1 rounded text-xs">Morning</span></td>
+<td class="p-md border-r border-outline-variant text-center"><span class="bg-secondary-container text-on-secondary-container px-sm py-1 rounded text-xs">Morning</span></td>
+<td class="p-md border-r border-outline-variant text-center"><span class="bg-secondary-container text-on-secondary-container px-sm py-1 rounded text-xs">Morning</span></td>
+<td class="p-md border-r border-outline-variant text-center"><span class="bg-secondary-container text-on-secondary-container px-sm py-1 rounded text-xs">Morning</span></td>
+<td class="p-md border-r border-outline-variant text-center text-outline-variant">—</td>
+<td class="p-md text-center text-outline-variant">—</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-lowest transition-colors">
+<td class="p-md border-r border-outline-variant bg-white sticky left-0 font-medium">Chidi Anagonye</td>
+<td class="p-md border-r border-outline-variant text-center"><span class="bg-tertiary-container text-on-tertiary px-sm py-1 rounded text-xs">Evening</span></td>
+<td class="p-md border-r border-outline-variant text-center"><span class="bg-tertiary-container text-on-tertiary px-sm py-1 rounded text-xs">Evening</span></td>
+<td class="p-md border-r border-outline-variant text-center"><span class="bg-tertiary-container text-on-tertiary px-sm py-1 rounded text-xs">Evening</span></td>
+<td class="p-md border-r border-outline-variant text-center text-outline-variant">—</td>
+<td class="p-md border-r border-outline-variant text-center text-outline-variant">—</td>
+<td class="p-md border-r border-outline-variant text-center"><span class="bg-tertiary-container text-on-tertiary px-sm py-1 rounded text-xs">Evening</span></td>
+<td class="p-md text-center"><span class="bg-tertiary-container text-on-tertiary px-sm py-1 rounded text-xs">Evening</span></td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-lowest transition-colors">
+<td class="p-md border-r border-outline-variant bg-white sticky left-0 font-medium">Tahani Al-Jamil</td>
+<td class="p-md border-r border-outline-variant text-center text-outline-variant">—</td>
+<td class="p-md border-r border-outline-variant text-center"><span class="bg-secondary-container text-on-secondary-container px-sm py-1 rounded text-xs">Morning</span></td>
+<td class="p-md border-r border-outline-variant text-center"><span class="bg-secondary-container text-on-secondary-container px-sm py-1 rounded text-xs">Morning</span></td>
+<td class="p-md border-r border-outline-variant text-center"><span class="bg-tertiary-container text-on-tertiary px-sm py-1 rounded text-xs">Evening</span></td>
+<td class="p-md border-r border-outline-variant text-center"><span class="bg-tertiary-container text-on-tertiary px-sm py-1 rounded text-xs">Evening</span></td>
+<td class="p-md border-r border-outline-variant text-center"><span class="bg-tertiary-container text-on-tertiary px-sm py-1 rounded text-xs">Evening</span></td>
+<td class="p-md text-center text-outline-variant">—</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Attendance Recap Table -->
+<div class="col-span-12 bg-white rounded-xl border border-outline-variant shadow-sm overflow-hidden mt-lg">
+<div class="p-lg border-b border-outline-variant flex items-center justify-between bg-surface-container-lowest">
+<h3 class="font-headline-md text-on-surface">Daily Attendance Recap</h3>
+<div class="flex items-center gap-md">
+<button class="flex items-center gap-sm px-md py-sm border border-outline-variant rounded-lg text-body-md hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-lg">download</span> Export CSV
+                        </button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container-low font-label-md text-outline uppercase">
+<th class="px-lg py-md">Employee Name</th>
+<th class="px-lg py-md">Date</th>
+<th class="px-lg py-md">Shift</th>
+<th class="px-lg py-md">Check-in</th>
+<th class="px-lg py-md">Check-out</th>
+<th class="px-lg py-md">Punctuality</th>
+<th class="px-lg py-md text-right">Status</th>
+</tr>
+</thead>
+<tbody class="font-body-md divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed font-bold text-xs">JD</div>
+<div>
+<p class="font-medium">Jason Dorian</p>
+<p class="text-xs text-outline">ID: EMP-4402</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md">Oct 24, 2023</td>
+<td class="px-lg py-md"><span class="px-sm py-1 border border-outline-variant rounded text-xs font-medium">Morning (08:00 - 16:00)</span></td>
+<td class="px-lg py-md">07:58 AM</td>
+<td class="px-lg py-md">04:05 PM</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-sm text-tertiary">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span>-2 min</span>
+</div>
+</td>
+<td class="px-lg py-md text-right">
+<span class="px-md py-1 bg-tertiary-fixed text-on-tertiary-fixed-variant rounded-full text-xs font-bold uppercase">On-time</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed font-bold text-xs">MW</div>
+<div>
+<p class="font-medium">Milo Weaver</p>
+<p class="text-xs text-outline">ID: EMP-4415</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md">Oct 24, 2023</td>
+<td class="px-lg py-md"><span class="px-sm py-1 border border-outline-variant rounded text-xs font-medium">Morning (08:00 - 16:00)</span></td>
+<td class="px-lg py-md">08:15 AM</td>
+<td class="px-lg py-md">04:00 PM</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-sm text-error">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span>+15 min</span>
+</div>
+</td>
+<td class="px-lg py-md text-right">
+<span class="px-md py-1 bg-error-container text-on-error-container rounded-full text-xs font-bold uppercase">Late</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed-dim flex items-center justify-center text-on-secondary-fixed font-bold text-xs">KL</div>
+<div>
+<p class="font-medium">Kira Laurent</p>
+<p class="text-xs text-outline">ID: EMP-4501</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md">Oct 24, 2023</td>
+<td class="px-lg py-md"><span class="px-sm py-1 border border-outline-variant rounded text-xs font-medium">Evening (16:00 - 00:00)</span></td>
+<td class="px-lg py-md">—</td>
+<td class="px-lg py-md">—</td>
+<td class="px-lg py-md">
+<span class="text-outline-variant">—</span>
+</td>
+<td class="px-lg py-md text-right">
+<span class="px-md py-1 bg-surface-container-highest text-outline rounded-full text-xs font-bold uppercase">Absent</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed-dim flex items-center justify-center text-on-tertiary-fixed font-bold text-xs">PB</div>
+<div>
+<p class="font-medium">Phoebe Buffay</p>
+<p class="text-xs text-outline">ID: EMP-4522</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md">Oct 24, 2023</td>
+<td class="px-lg py-md"><span class="px-sm py-1 border border-outline-variant rounded text-xs font-medium">Evening (16:00 - 00:00)</span></td>
+<td class="px-lg py-md">03:55 PM</td>
+<td class="px-lg py-md">11:58 PM</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-sm text-tertiary">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span>-5 min</span>
+</div>
+</td>
+<td class="px-lg py-md text-right">
+<span class="px-md py-1 bg-tertiary-fixed text-on-tertiary-fixed-variant rounded-full text-xs font-bold uppercase">On-time</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-lg border-t border-outline-variant flex items-center justify-between bg-surface-container-lowest">
+<p class="font-body-md text-outline">Showing 1 to 4 of 152 entries</p>
+<div class="flex items-center gap-sm">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container-low transition-colors"><span class="material-symbols-outlined">chevron_left</span></button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-on-primary font-bold">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container-low transition-colors">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container-low transition-colors">3</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container-low transition-colors"><span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Contextual FAB (Hidden on this transactional screen as per mandate, but logic included for completeness) -->
+<!-- <button class="fixed bottom-xl right-xl w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-all">
+        <span class="material-symbols-outlined">add</span>
+    </button> -->
+<script>
+        // Simple Micro-interactions
+        document.querySelectorAll('tr').forEach(row => {
+            row.addEventListener('mouseenter', () => {
+                row.classList.add('bg-surface-container-low');
+            });
+            row.addEventListener('mouseleave', () => {
+                row.classList.remove('bg-surface-container-low');
+            });
+        });
+
+        // Search Bar Focus Effect
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('ring-2', 'ring-primary/20');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('ring-2', 'ring-primary/20');
+        });
+    </script>
+</body></html>
