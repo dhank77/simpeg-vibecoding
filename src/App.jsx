@@ -4,14 +4,77 @@ import TopNav from './components/TopNav'
 import EmployeeTable from './components/EmployeeTable'
 import SummaryCards from './components/SummaryCards'
 
+const initialEmployees = [
+  {
+    id: 1,
+    name: 'Adrian Wijaya',
+    email: 'adrian.w@company.com',
+    nik: '2023001042',
+    department: 'Engineering',
+    position: 'Senior Backend dev',
+    joinDate: 'Jan 12, 2023',
+    status: 'Permanent',
+    avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCVC72YnEOyuTP9O4Z6Nze_eBMX0aWR1UB3tvYrA7SMqtStAokeKCWuF6BjvJJdHEwHJckuW-iKWtEa6LqjHafVVIH1Ylq7Il57HWFaiGfoYj-F9VZOpatOTM7XNm25eY7etSWYj4VG7DOkgy_lwkynofnghPVCu3ha8n-4S2dgUAcyFHka40BHTo47ZQWKvx3EB4Fnl_s2_AEUha5rYBvAoXspSMCz-m7pGOHZ4rxVoeUT4NGBx_VF',
+  },
+  {
+    id: 2,
+    name: 'Biana Putri',
+    email: 'biana.p@company.com',
+    nik: '2023002115',
+    department: 'Product Design',
+    position: 'UX Researcher',
+    joinDate: 'Mar 05, 2023',
+    status: 'Contract',
+    avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAvkHCrhNjOTxDyJhXr4sQRDcAUWiLSdxpnzb2ScMpxgk7ie4WZNwFPKgdyDsTocvlYZzhfidW5pW0Vy7S8HSlNmzrO6a2SAOspYEXEu-abdTqT5zi5dSiTEH-DAM60VQ-sgUxoIKfTX1ShQbj8YOLAYXZ-tq86HLYklY7D5UjrHe8uslNl_Q_YB-aisjvHtP5p9-xuIZBkEdsAck9D95WKUR-J8XglTR0TQ_fNykflYWuKe1fLlMTy',
+  },
+  {
+    id: 3,
+    name: 'Daniel Nugraha',
+    email: 'daniel.n@company.com',
+    nik: '2024005022',
+    department: 'Marketing',
+    position: 'Social Media Intern',
+    joinDate: 'Jun 18, 2024',
+    status: 'Intern',
+    avatar: null,
+  },
+  {
+    id: 4,
+    name: 'Eko Prasetyo',
+    email: 'eko.p@company.com',
+    nik: '2021000008',
+    department: 'Finance',
+    position: 'Head of Finance',
+    joinDate: 'Aug 22, 2021',
+    status: 'Permanent',
+    avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCNSxPicX8v8_k4vGmOPnpo5lmIhqZEQ66PWXHuEqNMd9vdQfHKYG5OHHyKAxWSI4z4GZfJ3UcjDKexNADIIwR5D4leTvoaWfzZKK9alcT58tb_xZEd5S74DwFE89gm-uTd3s1Tp0nesVYUsJKYaLxGVbDFEUW_VcOOqITMnTQ6xwdZBMzUVGpcV9nRPp4TxqdnRQI3XxnI3O5ZfjHE7Q1hElyYQmtIw7rURqtkgqhVQFiqF4E-ByHP',
+  },
+  {
+    id: 5,
+    name: 'Farrah Quinn',
+    email: 'farrah.q@company.com',
+    nik: '2023004552',
+    department: 'Human Resources',
+    position: 'Recruitment Lead',
+    joinDate: 'Nov 15, 2023',
+    status: 'Contract',
+    avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDpaNT3zLekn33qXpd0g91azewsmyoTu_gMwNsHkxUjKTjgDfBCTsRXyHuFu69OAE6MNPP2159Jco-hUjGHHDnUcYu7b9uDv6vI6rqWElNhavp1igg5-zwssUhpnH0mIVk_SinIXHNvRnqP6ZiEXDD-qSqxuHUDVhiPj0EF8pv98Lv7hFoqqMUAV0MVA9tNIs9oKKWCJ7TrJNxX9DSNgDo9AtXilJT40boNbPcQWUBPIqO6r4Alpf9P',
+  },
+]
+
 function App() {
   const [searchQuery, setSearchQuery] = useState('')
+  const [employees, setEmployees] = useState(initialEmployees)
+
+  const handleAddEmployee = (newEmployee) => {
+    setEmployees((prev) => [...prev, newEmployee])
+  }
 
   return (
     <div className="bg-background text-on-background min-h-screen overflow-x-hidden">
       <Sidebar />
       <main className="ml-[240px] min-h-screen">
-        <TopNav />
+        <TopNav employees={employees} onSubmit={handleAddEmployee} />
         <div className="p-gutter">
           <div className="mb-xl flex flex-col md:flex-row md:items-end justify-between gap-md">
             <div>
@@ -80,7 +143,7 @@ function App() {
             />
           </div>
 
-          <EmployeeTable searchQuery={searchQuery} />
+          <EmployeeTable searchQuery={searchQuery} employees={employees} />
           <SummaryCards />
         </div>
       </main>
