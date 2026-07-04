@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
+import EditEmployeeForm from './EditEmployeeForm'
 
 const getStatusColor = (status) => {
   switch (status) {
@@ -16,6 +17,7 @@ const getStatusColor = (status) => {
 
 function EmployeeTable({ searchQuery }) {
   const [employees, setEmployees] = useState([])
+  const [editingEmployee, setEditingEmployee] = useState(null)
 
   useEffect(() => {
     const fetchEmployees = async () => {
@@ -36,6 +38,11 @@ function EmployeeTable({ searchQuery }) {
 
     fetchEmployees()
   }, [])
+
+  const handleEditSuccess = (updatedEmployee) => {
+    setEmployees((prev) => prev.map((emp) => (emp.id === updatedEmployee.id ? updatedEmployee : emp)))
+    setEditingEmployee(null)
+  }
 
   const filtered = employees.filter((emp) => {
     const q = searchQuery.toLowerCase()
@@ -98,7 +105,11 @@ function EmployeeTable({ searchQuery }) {
                     <button className="p-xs text-primary hover:bg-primary-fixed rounded-sm transition-colors" title="View Profile">
                       <span className="material-symbols-outlined text-[20px]">visibility</span>
                     </button>
-                    <button className="p-xs text-secondary hover:bg-surface-variant rounded-sm transition-colors" title="Edit Employee">
+                    <button
+                      onClick={() => setEditingEmployee(emp)}
+                      className="p-xs text-secondary hover:bg-surface-variant rounded-sm transition-colors"
+                      title="Edit Employee"
+                    >
                       <span className="material-symbols-outlined text-[20px]">edit</span>
                     </button>
                   </div>
@@ -125,6 +136,14 @@ function EmployeeTable({ searchQuery }) {
           </button>
         </div>
       </div>
+
+      {editingEmployee && (
+        <EditEmployeeForm
+          employee={editingEmployee}
+          onClose={() => setEditingEmployee(null)}
+          onSuccess={handleEditSuccess}
+        />
+      )}
     </div>
   )
 }
