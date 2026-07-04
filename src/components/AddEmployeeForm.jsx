@@ -1,10 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { supabase } from '../lib/supabase'
 
-const departments = ['Engineering', 'Human Resources', 'Marketing', 'Finance', 'Product Design']
-const statuses = ['Permanent', 'Contract', 'Intern']
-const positions = ['Lead Engineer', 'Senior Designer', 'HR Generalist', 'Junior Analyst', 'Social Media Intern', 'UX Researcher', 'Senior Backend dev', 'Head of Finance', 'Recruitment Lead']
-
-function AddEmployeeForm({ onClose, onSubmit, employees }) {
+function AddEmployeeForm({ onClose, onSubmit }) {
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -18,16 +15,35 @@ function AddEmployeeForm({ onClose, onSubmit, employees }) {
 
   const update = (field, value) => setForm((prev) => ({ ...prev, [field]: value }))
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    const newEmployee = {
-      id: (employees?.length || 0) + 1,
-      ...form,
-      joinDate: form.joinDate
-        ? new Date(form.joinDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
-        : '',
+    const { data, error } = await supabase
+      .from('employees')
+      .insert([
+        {
+          name: form.name,
+          email: form.email,
+          nik: form.nik,
+          department: form.department,
+          position: form.position,
+          join_date: form.joinDate
+            ? new Date(form.joinDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+            : '',
+          status: form.status,
+          avatar: form.avatar,
+        },
+      ])
+      .select()
+
+    if (error) {
+      console.error('Error inserting employee:', error)
+      alert('Failed to add employee: ' + error.message)
+      return
     }
-    onSubmit(newEmployee)
+
+    if (data && data[0]) {
+      onSubmit(data[0])
+    }
     onClose()
   }
 
@@ -92,9 +108,11 @@ function AddEmployeeForm({ onClose, onSubmit, employees }) {
                 onChange={(e) => update('department', e.target.value)}
                 className="bg-white border border-outline-variant rounded-lg px-md py-sm font-body-md text-body-md focus:ring-primary focus:border-primary outline-none"
               >
-                {departments.map((dept) => (
-                  <option key={dept} value={dept}>{dept}</option>
-                ))}
+                <option>Engineering</option>
+                <option>Human Resources</option>
+                <option>Marketing</option>
+                <option>Finance</option>
+                <option>Product Design</option>
               </select>
             </div>
             <div className="flex flex-col gap-xs">
@@ -104,9 +122,15 @@ function AddEmployeeForm({ onClose, onSubmit, employees }) {
                 onChange={(e) => update('position', e.target.value)}
                 className="bg-white border border-outline-variant rounded-lg px-md py-sm font-body-md text-body-md focus:ring-primary focus:border-primary outline-none"
               >
-                {positions.map((pos) => (
-                  <option key={pos} value={pos}>{pos}</option>
-                ))}
+                <option>Lead Engineer</option>
+                <option>Senior Designer</option>
+                <option>HR Generalist</option>
+                <option>Junior Analyst</option>
+                <option>Social Media Intern</option>
+                <option>UX Researcher</option>
+                <option>Senior Backend dev</option>
+                <option>Head of Finance</option>
+                <option>Recruitment Lead</option>
               </select>
             </div>
             <div className="flex flex-col gap-xs">
@@ -116,9 +140,9 @@ function AddEmployeeForm({ onClose, onSubmit, employees }) {
                 onChange={(e) => update('status', e.target.value)}
                 className="bg-white border border-outline-variant rounded-lg px-md py-sm font-body-md text-body-md focus:ring-primary focus:border-primary outline-none"
               >
-                {statuses.map((status) => (
-                  <option key={status} value={status}>{status}</option>
-                ))}
+                <option>Permanent</option>
+                <option>Contract</option>
+                <option>Intern</option>
               </select>
             </div>
             <div className="flex flex-col gap-xs">

@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { supabase } from '../lib/supabase'
 
 const getStatusColor = (status) => {
   switch (status) {
@@ -13,7 +14,29 @@ const getStatusColor = (status) => {
   }
 }
 
-function EmployeeTable({ searchQuery, employees }) {
+function EmployeeTable({ searchQuery }) {
+  const [employees, setEmployees] = useState([])
+
+  useEffect(() => {
+    const fetchEmployees = async () => {
+      const { data, error } = await supabase
+        .from('employees')
+        .select('*')
+        .order('id', { ascending: true })
+
+      if (error) {
+        console.error('Error fetching employees:', error)
+        return
+      }
+
+      if (data) {
+        setEmployees(data)
+      }
+    }
+
+    fetchEmployees()
+  }, [])
+
   const filtered = employees.filter((emp) => {
     const q = searchQuery.toLowerCase()
     return (
@@ -64,7 +87,7 @@ function EmployeeTable({ searchQuery, employees }) {
                 <td className="px-lg py-md font-body-md text-body-md text-on-surface-variant">{emp.nik}</td>
                 <td className="px-lg py-md font-body-md text-body-md text-on-surface">{emp.department}</td>
                 <td className="px-lg py-md font-body-md text-body-md text-on-surface-variant">{emp.position}</td>
-                <td className="px-lg py-md font-body-md text-body-md text-on-surface-variant">{emp.joinDate}</td>
+                <td className="px-lg py-md font-body-md text-body-md text-on-surface-variant">{emp.joinDate || emp.join_date}</td>
                 <td className="px-lg py-md">
                   <span className={`inline-flex items-center px-sm py-xs rounded-full font-label-md text-label-md ${getStatusColor(emp.status)}`}>
                     {emp.status}

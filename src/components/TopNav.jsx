@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import AddEmployeeForm from './AddEmployeeForm'
 
-function TopNav({ onSubmit, employees }) {
+function TopNav({ onSuccess }) {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -37,8 +37,7 @@ function TopNav({ onSubmit, employees }) {
       {isOpen && (
         <AddEmployeeForm
           onClose={() => setIsOpen(false)}
-          onSubmit={onSubmit}
-          employees={employees}
+          onSubmit={onSuccess}
         />
       )}
     </>
