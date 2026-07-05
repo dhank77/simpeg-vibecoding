@@ -40,7 +40,7 @@ function Sidebar() {
           <img
             className="w-10 h-10 rounded-full border border-outline-variant"
             alt="Sarah Chen"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGAlufYXPoH4piEsJH9f-g8-AnkuhyuLTVjBmWLO0fGHSFrBavF_Zz2WUBHE3r-L1VB5DblukmK1zIFXZ5pv5LD6nZ3r5zYdIvulnm2HfE7B0mRNn2SEGEz-UECsi4f2PgXCaKlCgbEmVpBI8mwIM40TtEMSrA2h9qBZZ9Sxu0V2k8jqnSvX2QiceozNZkt12hNEdchM6qugGUFfWSQfXB_kpvNrwXu94ZuZENmqBUvw9HLldyUgDy"
+            src="/banner.jpeg"
           />
           <div>
             <p className="font-title-md text-title-md leading-tight">Sarah Chen</p>
